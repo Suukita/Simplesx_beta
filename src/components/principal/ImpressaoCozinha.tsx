@@ -11,6 +11,7 @@ import { ChefHat, Printer, Settings, Eye } from 'lucide-react';
 import { ItemComanda } from '@/types/restaurant';
 import { useToast } from '@/hooks/use-toast';
 import { GerenciadorImpressao } from '@/utils/impressao';
+import { GerenciadorImpressao } from '@/utils/impressao';
 
 interface ImpressaoCozinhaProps {
   isOpen: boolean;
@@ -263,7 +264,7 @@ const ImpressaoCozinha = ({ isOpen, onClose, itens, mesaNumero, garcomNome }: Im
                 
                 <div>
                   <Label>Tamanho da fonte</Label>
-                  <Select value={config.tamanhoFonte} onValueChange={(value: any) => setConfig({...config, tamanhoFonte: value})}>
+                  <Select value={config.tamanhoFonte} onValueChange={(value: 'pequeno' | 'medio' | 'grande') => setConfig({...config, tamanhoFonte: value})}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>

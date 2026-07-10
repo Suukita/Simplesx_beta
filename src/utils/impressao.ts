@@ -19,6 +19,30 @@ export class GerenciadorImpressao {
   public async imprimir(conteudo: string, titulo: string, config?: ConfiguracaoImpressao): Promise<boolean> {
     console.log('Iniciando impressão:', titulo);
 
+
+    // Impressão via servidor local CUPS/Diebold
+try {
+  const resposta = await fetch("http://localhost:3001/imprimir", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      conteudo,
+    }),
+  });
+
+  const retorno = await resposta.json();
+
+  if (retorno.sucesso) {
+    console.log("Impressão enviada para Diebold IM453H");
+    return true;
+  }
+
+} catch (erro) {
+  console.log("Servidor de impressão não respondeu");
+}
+
     // 1. Tentar POS Printer primeiro
     const sucessoPOSPrinter = await POSPrinterManager.imprimir(conteudo, titulo);
     if (sucessoPOSPrinter) {
